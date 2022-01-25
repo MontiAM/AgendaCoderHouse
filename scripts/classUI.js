@@ -32,10 +32,8 @@ export class UI {
     }
 
     deleteContact(element) {
-        if (element.name === 'delete') {
-            element.parentElement.parentElement.remove();
-            this.showMessage('Contacto Eliminado', 'info')
-        }
+        element.parentElement.parentElement.remove();
+        this.showMessage('Contacto Eliminado', 'info')
     }
 
     showMessage(message, cssClass) {
@@ -50,5 +48,36 @@ export class UI {
         }, 2000);
     }
 
+    editContact(contacto){
+        let nombre = contacto.name;
+        let tel = contacto.tel;
+        let mail = contacto.mail;
+
+        let edit = document.createElement('div');
+        edit.className = 'editContacto';
+        edit.innerHTML = `
+        <div class="container mt-5">
+            <h1 class="card-header m-2">Contacto</h1>
+            <form id="contactoEdit" class="card-body">
+                <div class="form-group flex-line">
+                    <label for="name" class="fw-bold text-center p-4 w-25">Nombre</label>
+                    <input type="text" id="${nombre}" placeholder="${nombre}" class="form-control">
+                </div>
+                <div class="form-group flex-line">
+                    <label for="tel" class="fw-bold text-center p-4 w-25">Telefono</label>
+                    <input type="number" id="${tel}" placeholder="${tel}" class="form-control">
+                </div>
+                <div class="form-group flex-line">
+                    <label for="email" class="fw-bold text-center p-4 w-25">Email</label>
+                    <input type="email" id="${mail}" placeholder="${mail}" class="form-control">
+                </div>
+                <input type="submit" value="Guardar", class="mt-5 btn btn-primary w-100">
+            </form>
+        </div>
+        `;
+        const body = document.querySelector('body');
+        const contenedor = document.querySelector('.contenedor');
+        body.insertBefore(edit, contenedor);
+    };
 }
 

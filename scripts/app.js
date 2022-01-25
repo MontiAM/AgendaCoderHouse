@@ -84,23 +84,75 @@ document.getElementById('btn-buscar').addEventListener('click', () => {
 
 // Evento BORRAR CONTACTO
 document.getElementById('contact-list').addEventListener('click', (e) => {
-    const ui = new UI();
-    let agendaStorage = new AgendaStorage();
-    agenda.listaContactos = agendaStorage.getContactosStorage();
+    if (e.target.name === 'delete'){
+        const ui = new UI();
+        let agendaStorage = new AgendaStorage();
+        agenda.listaContactos = agendaStorage.getContactosStorage();
 
-    let ubicacion = '';
-    agenda.listaContactos.map( (contacto, index) => {
-        let id = contacto.name + contacto.tel;
-        if (id == e.target.parentElement.id) {
-            ubicacion = index;
+        let ubicacion = '';
+        agenda.listaContactos.map( (contacto, index) => {
+            let id = contacto.name + contacto.tel;
+            if (id == e.target.parentElement.id) {
+                ubicacion = index;
+            }
+        })
+        let confirmacion = confirm(`Seguro desea eliminar a ${agenda.listaContactos[ubicacion].name} de sus contactos?`);
+        if (confirmacion) {
+            agenda.listaContactos.splice(ubicacion, 1);
+            agendaStorage.setContactosStorage(agenda);
+            ui.deleteContact(e.target);
         }
-    })
-    let confirmacion = confirm(`Seguro desea eliminar a ${agenda.listaContactos[ubicacion].name} de sus contactos?`);
-    if (confirmacion) {
-        agenda.listaContactos.splice(ubicacion, 1);
-        agendaStorage.setContactosStorage(agenda);
-        ui.deleteContact(e.target);
     }
+})
+
+
+// Evento EDITAR CONTACTO
+document.getElementById('contact-list').addEventListener('click', (e) => {
+    if (e.target.name === 'edit') {
+
+        const ui = new UI();
+        let agendaStorage = new AgendaStorage();
+        agenda.listaContactos = agendaStorage.getContactosStorage();
+
+        let ubicacion = '';
+        agenda.listaContactos.map( (contacto, index) => {
+            let id = contacto.name + contacto.tel;
+            if (id == e.target.parentElement.id) {
+                ubicacion = index;
+            }
+        })
+
+        console.log(agenda.listaContactos);
+        alert(ubicacion)
+
+        ui.editContact(agenda.listaContactos[ubicacion]);
+
+        const contenedorEdit = document.getElementById('contactoEdit');
+
+        contenedorEdit.addEventListener('submit', (e) => {
+
+            let editName = document.getElementById(agenda.listaContactos[ubicacion].name).value;
+            let editTel = document.getElementById(agenda.listaContactos[ubicacion].tel).value;
+            let editMail = document.getElementById(agenda.listaContactos[ubicacion].mail).value;
+            let editContact = new Contacto(editName, editTel, editMail);
+
+            for (const propiedad in editContact) {
+                if (editContact[propiedad] !== '') {
+                    agenda.listaContactos[ubicacion][propiedad] = editContact[propiedad]
+                } 
+            }
+
+            e.preventDefault();
+            contenedorEdit.parentElement.parentElement.remove();
+
+            // agendaStorage.setContactosStorage(agenda);
+            // ui.addContacto(agenda);
+
+        })
+
+    }
+
+
 })
 
 
