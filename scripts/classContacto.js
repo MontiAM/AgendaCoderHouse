@@ -3,6 +3,7 @@ export class Contacto {
         this.name = name;
         this.tel = tel;
         this.mail = mail;
-        this.img = "../img/icono-persona.jpg"
+        this.img = "../img/icono-persona.jpg";
+        this.id = name + tel
     }
 }

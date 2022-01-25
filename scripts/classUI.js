@@ -9,10 +9,11 @@ export class UI {
             let tel = agenda.listaContactos[i].tel;
             let mail = agenda.listaContactos[i].mail;
             let img = agenda.listaContactos[i].img;
+            let idContacto = agenda.listaContactos[i].id
             elemento.innerHTML += `
             <div class ="card cardContact mb4">
                 <img class="img-contacto" src="${img}"></img>
-                <div>
+                <div id="${idContacto}">
                     <div name="card-contact"><strong>Nombre Contacto</strong>: ${name}</div>
                     <div><strong>Telefono</strong>: ${tel}</div>
                     <div><strong>E-Mail</strong>: ${mail}</div>
@@ -30,13 +31,12 @@ export class UI {
         document.getElementById('agenda-form').reset();
     }
 
-    // deleteContact(element) {
-
-    //     if (element.name === 'delete') {
-    //         element.parentElement.parentElement.parentElement.remove();
-    //     }
-    //     this.showMessage('Contacto Eliminado', 'info')
-    // }
+    deleteContact(element) {
+        if (element.name === 'delete') {
+            element.parentElement.parentElement.remove();
+            this.showMessage('Contacto Eliminado', 'info')
+        }
+    }
 
     showMessage(message, cssClass) {
         const div = document.createElement('div');
@@ -50,27 +50,5 @@ export class UI {
         }, 2000);
     }
 
-    showContacto (contacto) {
-        let div = document.createElement('div');
-        div.className = 'modal'
-        div.innerHTML = `
-            <div class="container">
-                <img class="img-contacto" src="${contacto.img}"></img>
-                <div>${contacto.name}</div>
-                <div>${contacto.tel}</div>
-                <div>${contacto.mail}</div>
-            </div>
-        `
-
-        console.log(div);
-        const contenedor = document.querySelector('.contenedor');
-        const card = document.querySelector('.card');
-        contenedor.insertBefore(div, card);
-
-        setTimeout( () => {
-            document.querySelector('.modal').remove();
-        }, 3000);
-
-    }
 }
 
