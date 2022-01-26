@@ -121,10 +121,6 @@ document.getElementById('contact-list').addEventListener('click', (e) => {
             }
         })
 
-        
-        console.log(ubicacion);
-        console.log(agenda.listaContactos);
-
         ui.editContact(agenda.listaContactos[ubicacion]);
 
         const contenedorEdit = document.getElementById('contactoEdit');
@@ -135,14 +131,15 @@ document.getElementById('contact-list').addEventListener('click', (e) => {
             let editMail = document.getElementById(agenda.listaContactos[ubicacion].mail).value;
             let editContact = new Contacto(editName, editTel, editMail);
 
-            for (const propiedad in editContact) {
-                if (editContact[propiedad] !== '' && propiedad !== 'id' ) {
-                    agenda.listaContactos[ubicacion][propiedad] = editContact[propiedad]
+            for (let propiedad in editContact) {
+                if (editContact[propiedad] !== '' && propiedad !== 'id') {
+                    agenda.listaContactos[ubicacion][propiedad] = editContact[propiedad];
                 }    
             }
+            agenda.listaContactos[ubicacion].id = agenda.listaContactos[ubicacion].name + agenda.listaContactos[ubicacion].tel; 
 
-            agendaStorage.setContactosStorage(agenda);
             ui.addContacto(agenda);
+            agendaStorage.setContactosStorage(agenda);
 
             e.preventDefault();
             contenedorEdit.parentElement.parentElement.remove();
