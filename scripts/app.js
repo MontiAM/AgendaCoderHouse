@@ -73,7 +73,6 @@ document.getElementById('btn-buscar').addEventListener('click', () => {
         }
     }
 
-    console.log(typeof(encontrado.length));
     if (encontrado.listaContactos.length !== 0) {
         ui.addContacto(encontrado)
     } else {
@@ -122,13 +121,13 @@ document.getElementById('contact-list').addEventListener('click', (e) => {
             }
         })
 
+        
+        console.log(ubicacion);
         console.log(agenda.listaContactos);
-        alert(ubicacion)
 
         ui.editContact(agenda.listaContactos[ubicacion]);
 
         const contenedorEdit = document.getElementById('contactoEdit');
-
         contenedorEdit.addEventListener('submit', (e) => {
 
             let editName = document.getElementById(agenda.listaContactos[ubicacion].name).value;
@@ -137,22 +136,18 @@ document.getElementById('contact-list').addEventListener('click', (e) => {
             let editContact = new Contacto(editName, editTel, editMail);
 
             for (const propiedad in editContact) {
-                if (editContact[propiedad] !== '') {
+                if (editContact[propiedad] !== '' && propiedad !== 'id' ) {
                     agenda.listaContactos[ubicacion][propiedad] = editContact[propiedad]
-                } 
+                }    
             }
+
+            agendaStorage.setContactosStorage(agenda);
+            ui.addContacto(agenda);
 
             e.preventDefault();
             contenedorEdit.parentElement.parentElement.remove();
-
-            // agendaStorage.setContactosStorage(agenda);
-            // ui.addContacto(agenda);
-
         })
-
     }
-
-
 })
 
 
