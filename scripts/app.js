@@ -2,7 +2,7 @@ import { Agenda } from "./classAgenda.js";
 import { Contacto } from "./classContacto.js";
 import { UI } from "./classUI.js";
 import { AgendaStorage } from "./classLocalStorage.js";
-import { validarEntradas } from "./Validacion.js"
+import { eventoValidarEntradas } from "./Validacion.js"
 
 let agenda = new Agenda();
 
@@ -12,6 +12,7 @@ window.onload = () => {
     let agendaStorage = new AgendaStorage();
     agenda.listaContactos = agendaStorage.getContactosStorage();
     ui.addContacto(agenda);
+    
 }
 
 
@@ -149,8 +150,4 @@ document.getElementById('contact-list').addEventListener('click', (e) => {
 
 
 // Eventos de validacion a formulario (a completar.)
-let inputs = document.getElementsByName('aValidar');
-inputs.forEach( (input) => {
-    input.addEventListener('keyup', validarEntradas);
-    input.addEventListener('blur', validarEntradas);
-})
+eventoValidarEntradas();

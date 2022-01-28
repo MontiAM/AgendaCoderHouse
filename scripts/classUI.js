@@ -1,5 +1,6 @@
-export class UI {
-    
+// import { eventoValidarEntradas } from "./Validacion.js";
+
+export class UI { 
     addContacto(agenda) {
         const listaContactos = document.getElementById('contact-list');
         listaContactos.innerHTML = '';  
@@ -61,20 +62,23 @@ export class UI {
             <form id="contactoEdit" class="card-body">
                 <div class="form-group flex-line">
                     <label for="name" class="fw-bold text-center p-4 w-25">Nombre</label>
-                    <input type="text" id="${nombre}" placeholder="${nombre}" class="form-control">
+                    <input type="text" id="${nombre}" placeholder="${nombre}" name="aValidar" class="form-control name">
                 </div>
                 <div class="form-group flex-line">
                     <label for="tel" class="fw-bold text-center p-4 w-25">Telefono</label>
-                    <input type="number" id="${tel}" placeholder="${tel}" class="form-control">
+                    <input type="number" id="${tel}" placeholder="${tel}" name="aValidar" class="form-control tel">
                 </div>
                 <div class="form-group flex-line">
                     <label for="email" class="fw-bold text-center p-4 w-25">Email</label>
-                    <input type="email" id="${mail}" placeholder="${mail}" class="form-control">
+                    <input type="email" id="${mail}" placeholder="${mail}" name="aValidar" class="form-control mail">
                 </div>
                 <input type="submit" value="Guardar", class="mt-5 btn btn-primary w-100">
             </form>
         </div>
         `;
+
+        // eventoValidarEntradas();
+
         const body = document.querySelector('body');
         const contenedor = document.querySelector('.contenedor');
         body.insertBefore(edit, contenedor);
