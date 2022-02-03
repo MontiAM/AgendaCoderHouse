@@ -23,7 +23,8 @@ export class UI {
                 </div>
             </div>
             `;
-            listaContactos.appendChild(elemento);
+    
+            $(listaContactos).prepend(elemento);
         }
         this.resetForm();
     }
