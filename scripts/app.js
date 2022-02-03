@@ -6,19 +6,19 @@ import { eventoValidarEntradas } from "./Validacion.js"
 
 let agenda = new Agenda();
 
+
+
 // Evento CARGA DE PAGINA:
-window.onload = () => {
+$(document).ready( () => {
     const ui = new UI();
     let agendaStorage = new AgendaStorage();
     agenda.listaContactos = agendaStorage.getContactosStorage();
-    ui.addContacto(agenda);
-    
-}
-
+    ui.addContacto(agenda);    
+});
 
 // Evento del FORMULARIO: 
-document.getElementById('agenda-form').addEventListener('submit', (e) =>{
-    
+$('#agenda-form').submit( (e) => { 
+
     const name = document.getElementById('name').value;
     const tel = document.getElementById('tel').value;
     const mail = document.getElementById('mail').value;
@@ -38,14 +38,13 @@ document.getElementById('agenda-form').addEventListener('submit', (e) =>{
         ui.showMessage('Contacto Agregado', 'success')
         agendaStorage.addContactoStorage(agenda, contacto);
     }
-    
+
     e.preventDefault();
 });
 
-
 // Evento de ORDENAR ALFABETICAMENTE
-document.getElementById('ordenar').addEventListener('click', () => {
-
+$('#ordenar').click( () => { 
+    
     const ui = new UI();
     let agendaStorage = new AgendaStorage();
     agenda.listaContactos = agendaStorage.getContactosStorage();
@@ -57,11 +56,11 @@ document.getElementById('ordenar').addEventListener('click', () => {
     })
     ui.addContacto(agenda);
     agendaStorage.setContactosStorage(agenda);
-})
-
+    
+});
 
 // Evento de BUSCAR CONTACTO
-document.getElementById('btn-buscar').addEventListener('click', () => {
+$('#btn-buscar').click( () => { 
     let encontrado = new Agenda()
     const buscado = document.getElementById('buscar').value;
     const ui = new UI();
@@ -79,11 +78,10 @@ document.getElementById('btn-buscar').addEventListener('click', () => {
     } else {
         ui.showMessage('Contacto inexistente', 'danger')
     }
-})
-
+});
 
 // Evento BORRAR CONTACTO
-document.getElementById('contact-list').addEventListener('click', (e) => {
+$('#contact-list').click( (e) => { 
     if (e.target.name === 'delete'){
         const ui = new UI();
         let agendaStorage = new AgendaStorage();
@@ -103,11 +101,10 @@ document.getElementById('contact-list').addEventListener('click', (e) => {
             ui.deleteContact(e.target);
         }
     }
-})
-
+});
 
 // Evento EDITAR CONTACTO
-document.getElementById('contact-list').addEventListener('click', (e) => {
+$('#contact-list').click( (e) => { 
     if (e.target.name === 'edit') {
 
         const ui = new UI();
@@ -146,8 +143,7 @@ document.getElementById('contact-list').addEventListener('click', (e) => {
             contenedorEdit.parentElement.parentElement.remove();
         })
     }
-})
-
+});
 
 // Eventos de validacion a formulario (a completar.)
 eventoValidarEntradas();
