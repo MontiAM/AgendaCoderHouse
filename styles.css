@@ -79,7 +79,7 @@ body {
 .editContacto {
     background-color: #cdd0e4;
     width: auto;
-    height: 100vh;
+    height: calc(100vh - 60px);
     position: absolute;
     right: 0;
     left: 0;
@@ -87,3 +87,6 @@ body {
     z-index: 10;
 }
 
+.fotosContainer {
+    z-index: 200;
+}

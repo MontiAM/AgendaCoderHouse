@@ -2,10 +2,9 @@ import { Agenda } from "./classAgenda.js";
 import { Contacto } from "./classContacto.js";
 import { UI } from "./classUI.js";
 import { AgendaStorage } from "./classLocalStorage.js";
-import { eventoValidarEntradas } from "./Validacion.js"
+
 
 let agenda = new Agenda();
-
 
 
 // Evento CARGA DE PAGINA:
@@ -121,6 +120,14 @@ $('#contact-list').click( (e) => {
 
         ui.editContact(agenda.listaContactos[ubicacion]);
 
+        // En progreso
+        $('#btnEditarFoto').click( (e) => { 
+            
+            ui.showPhotoOptions()
+
+            e.preventDefault();
+        });
+
         const contenedorEdit = document.getElementById('contactoEdit');
         contenedorEdit.addEventListener('submit', (e) => {
 
@@ -140,10 +147,15 @@ $('#contact-list').click( (e) => {
             agendaStorage.setContactosStorage(agenda);
 
             e.preventDefault();
-            contenedorEdit.parentElement.parentElement.remove();
+            $(contenedorEdit.parentElement.parentElement).slideUp("slow", () => {contenedorEdit.parentElement.parentElement.remove();});
+            
         })
     }
 });
 
-// Eventos de validacion a formulario (a completar.)
-eventoValidarEntradas();
+
+
+
+
+
+

@@ -1,5 +1,3 @@
-// import { eventoValidarEntradas } from "./Validacion.js";
-
 export class UI { 
     addContacto(agenda) {
         const listaContactos = document.getElementById('contact-list');
@@ -34,7 +32,7 @@ export class UI {
     }
 
     deleteContact(element) {
-        element.parentElement.parentElement.remove();
+        $(element.parentElement).slideDown("slow", () => element.parentElement.parentElement.remove());
         this.showMessage('Contacto Eliminado', 'info')
     }
 
@@ -44,6 +42,7 @@ export class UI {
         div.appendChild(document.createTextNode(message));
         const body = document.querySelector('body');
         const nav = document.querySelector('.nav');
+
         body.insertBefore(div, nav);
         setTimeout(() => {
             document.querySelector('.alert').remove();
@@ -54,35 +53,72 @@ export class UI {
         let nombre = contacto.name;
         let tel = contacto.tel;
         let mail = contacto.mail;
+        let img = contacto.img;
 
         let edit = document.createElement('div');
         edit.className = 'editContacto';
         edit.innerHTML = `
-        <div class="container mt-5">
-            <h1 class="card-header m-2">Contacto</h1>
-            <form id="contactoEdit" class="card-body">
-                <div class="form-group flex-line">
-                    <label for="name" class="fw-bold text-center p-4 w-25">Nombre</label>
-                    <input type="text" id="${nombre}" placeholder="${nombre}" name="aValidar" class="form-control name">
-                </div>
-                <div class="form-group flex-line">
-                    <label for="tel" class="fw-bold text-center p-4 w-25">Telefono</label>
-                    <input type="number" id="${tel}" placeholder="${tel}" name="aValidar" class="form-control tel">
-                </div>
-                <div class="form-group flex-line">
-                    <label for="email" class="fw-bold text-center p-4 w-25">Email</label>
-                    <input type="email" id="${mail}" placeholder="${mail}" name="aValidar" class="form-control mail">
-                </div>
-                <input type="submit" value="Guardar", class="mt-5 btn btn-primary w-100">
-            </form>
-        </div>
+        <div class="p-2">
+        <h1 class="card-header">Contacto</h1>
+        <form id="contactoEdit" class="card-body">
+            <div class="form-group flex-line">
+                <label for="name" class="fw-bold text-center p-4 w-25">Nombre</label>
+                <input type="text" id="${nombre}" placeholder="${nombre}" name="aValidar" class="form-control name">
+            </div>
+            <div class="form-group flex-line">
+                <label for="tel" class="fw-bold text-center p-4 w-25">Telefono</label>
+                <input type="number" id="${tel}" placeholder="${tel}" name="aValidar" class="form-control tel">
+            </div>
+            <div class="form-group flex-line">
+                <label for="email" class="fw-bold text-center p-4 w-25">Email</label>
+                <input type="email" id="${mail}" placeholder="${mail}" name="aValidar" class="form-control mail">
+            </div>
+            <div class="form-group mt-3 d-flex justify-content-center">
+                <img class="img-contacto" src="${img}"></img>
+                <div class="d-flex align-items-center"">
+                    <button id="btnEditarFoto" class="text-center ms-5 btn btn-primary">Editar Foto</button>
+                </div> 
+            </div>
+            <input type="submit" value="Guardar", class="mt-3 btn btn-primary w-100">
+        </form>
+    </div>
         `;
-
-        // eventoValidarEntradas();
 
         const body = document.querySelector('body');
         const contenedor = document.querySelector('.contenedor');
+        edit.style.display = "none";
         body.insertBefore(edit, contenedor);
+        $(edit).slideDown("slow");
     };
+
+    showPhotoOptions() {
+        let api = new APIinteraccion();
+        var fotos = api.obtenerFotos();
+        setInterval( () => {
+            let contenedorFotos = document.createElement('div');
+            contenedorFotos.className = 'editContacto fotosContainer';
+            contenedorFotos.style.display = 'none'
+            contenedorFotos.innerHTML = `
+                <div class="container mt-5">
+                    <div class="d-flex justify-content-center">
+                        <div id="fotosContenedor" class="d-flex align-items-center">
+                        </div>
+                    </div>
+                </div>`;
+
+            fotos.map((foto) => {
+
+                $('#fotosContenedor').append(`
+                    <img src="${foto}"></img>
+                `);
+
+            });
+                
+            
+            $('.nav').after(contenedorFotos);
+            $(contenedorFotos).slideDown("slow");
+        }, 2000)
+
+    }
 }
 
