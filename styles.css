@@ -39,6 +39,7 @@ body {
 
 .cardContact {
     display: flex;
+    height: 200px;
     flex-direction: row !important;
     margin-top: 5px;
 }
@@ -52,9 +53,10 @@ body {
 }
 
 .list-contacto {
-    width: 70%;
-    padding: 5px 10px;
-    overflow: scroll;
+
+    width: 80%;
+    padding:  10px;
+    overflow-y: scroll;
 }
 
 .alert {
@@ -71,7 +73,8 @@ body {
 
 .img-contacto {
     align-content: center;
-    width: 15%;
+    width: 30%;
+    margin-right: 10px;
     height: auto;
     box-sizing: border-box;
 }
@@ -85,8 +88,11 @@ body {
     left: 0;
     bottom: 0;
     z-index: 10;
+    overflow: scroll;
 }
 
 .fotosContainer {
     z-index: 200;
 }
+
+

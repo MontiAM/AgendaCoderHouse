@@ -1,11 +1,10 @@
-import { Agenda } from "./classAgenda.js";
-import { Contacto } from "./classContacto.js";
-import { UI } from "./classUI.js";
-import { AgendaStorage } from "./classLocalStorage.js";
+import { Agenda } from "./modelo/classAgenda.js";
+import { Contacto } from "./modelo/classContacto.js";
+import { UI } from "./vistas/classUI.js";
+import { AgendaStorage } from "./modelo/classLocalStorageAgenda.js";
 
 
 let agenda = new Agenda();
-
 
 // Evento CARGA DE PAGINA:
 $(document).ready( () => {
@@ -15,7 +14,7 @@ $(document).ready( () => {
     ui.addContacto(agenda);    
 });
 
-// Evento del FORMULARIO: 
+// Evento CARGAR CONTACTO: 
 $('#agenda-form').submit( (e) => { 
 
     const name = document.getElementById('name').value;
@@ -119,14 +118,24 @@ $('#contact-list').click( (e) => {
         })
 
         ui.editContact(agenda.listaContactos[ubicacion]);
-
-        // En progreso
+        
         $('#btnEditarFoto').click( (e) => { 
-            
             ui.showPhotoOptions()
+            let fotos = document.getElementsByName('picture');
+            setTimeout(() => {
+                for(let foto of fotos) {
+                    foto.addEventListener('click', (e) => {
+                        agenda.listaContactos[ubicacion].img = e.target.currentSrc;
+                        let fotoEdit = document.getElementById('fotoPerfilEdit');
+                        fotoEdit.src = agenda.listaContactos[ubicacion].img;
+                        $('#editPhoto').slideUp("slow");
+                    })
+                }
+            }, 1000);
 
             e.preventDefault();
         });
+
 
         const contenedorEdit = document.getElementById('contactoEdit');
         contenedorEdit.addEventListener('submit', (e) => {
@@ -137,7 +146,7 @@ $('#contact-list').click( (e) => {
             let editContact = new Contacto(editName, editTel, editMail);
 
             for (let propiedad in editContact) {
-                if (editContact[propiedad] !== '' && propiedad !== 'id') {
+                if (editContact[propiedad] !== '' && propiedad !== 'id' && propiedad !== 'img') {
                     agenda.listaContactos[ubicacion][propiedad] = editContact[propiedad];
                 }    
             }
@@ -152,10 +161,6 @@ $('#contact-list').click( (e) => {
         })
     }
 });
-
-
-
-
 
 
 

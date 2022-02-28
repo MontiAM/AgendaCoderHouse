@@ -1,4 +1,9 @@
 export class UI { 
+    constructor () {
+        this.api = new APIinteraccion();
+        this.fotos = this.api.obtenerFotos();
+    }
+
     addContacto(agenda) {
         const listaContactos = document.getElementById('contact-list');
         listaContactos.innerHTML = '';  
@@ -22,7 +27,7 @@ export class UI {
             </div>
             `;
     
-            $(listaContactos).prepend(elemento);
+            $(listaContactos).append(elemento);
         }
         this.resetForm();
     }
@@ -59,29 +64,29 @@ export class UI {
         edit.className = 'editContacto';
         edit.innerHTML = `
         <div class="p-2">
-        <h1 class="card-header">Contacto</h1>
-        <form id="contactoEdit" class="card-body">
-            <div class="form-group flex-line">
-                <label for="name" class="fw-bold text-center p-4 w-25">Nombre</label>
-                <input type="text" id="${nombre}" placeholder="${nombre}" name="aValidar" class="form-control name">
-            </div>
-            <div class="form-group flex-line">
-                <label for="tel" class="fw-bold text-center p-4 w-25">Telefono</label>
-                <input type="number" id="${tel}" placeholder="${tel}" name="aValidar" class="form-control tel">
-            </div>
-            <div class="form-group flex-line">
-                <label for="email" class="fw-bold text-center p-4 w-25">Email</label>
-                <input type="email" id="${mail}" placeholder="${mail}" name="aValidar" class="form-control mail">
-            </div>
-            <div class="form-group mt-3 d-flex justify-content-center">
-                <img class="img-contacto" src="${img}"></img>
-                <div class="d-flex align-items-center"">
-                    <button id="btnEditarFoto" class="text-center ms-5 btn btn-primary">Editar Foto</button>
-                </div> 
-            </div>
-            <input type="submit" value="Guardar", class="mt-3 btn btn-primary w-100">
-        </form>
-    </div>
+            <h1 class="card-header h-10">Contacto</h1>
+            <form id="contactoEdit" class="card-body">
+                <div class="form-group flex-line">
+                    <label for="name" class="fw-bold text-center p-4 w-25">Nombre</label>
+                    <input type="text" id="${nombre}" placeholder="${nombre}" name="aValidar" class="form-control name">
+                </div>
+                <div class="form-group flex-line">
+                    <label for="tel" class="fw-bold text-center p-4 w-25">Telefono</label>
+                    <input type="number" id="${tel}" placeholder="${tel}" name="aValidar" class="form-control tel">
+                </div>
+                <div class="form-group flex-line">
+                    <label for="email" class="fw-bold text-center p-4 w-25">Email</label>
+                    <input type="email" id="${mail}" placeholder="${mail}" name="aValidar" class="form-control mail">
+                </div>
+                <div class="form-group mt-3 d-flex justify-content-center">
+                    <img id="fotoPerfilEdit" class="w-10" src="${img}"></img>
+                    <div class="d-flex align-items-center"">
+                        <button id="btnEditarFoto" class="text-center ms-5 btn btn-primary">Editar Foto</button>
+                    </div> 
+                </div>
+                <input type="submit" value="Guardar", class="mt-3 btn btn-primary w-100">
+            </form>
+        </div>
         `;
 
         const body = document.querySelector('body');
@@ -92,33 +97,25 @@ export class UI {
     };
 
     showPhotoOptions() {
-        let api = new APIinteraccion();
-        var fotos = api.obtenerFotos();
-        setInterval( () => {
-            let contenedorFotos = document.createElement('div');
-            contenedorFotos.className = 'editContacto fotosContainer';
-            contenedorFotos.style.display = 'none'
-            contenedorFotos.innerHTML = `
-                <div class="container mt-5">
-                    <div class="d-flex justify-content-center">
-                        <div id="fotosContenedor" class="d-flex align-items-center">
-                        </div>
-                    </div>
-                </div>`;
+        let contenedorFotos = document.createElement('div');
+        contenedorFotos.className = 'editContacto fotosContainer';
+        contenedorFotos.id = 'editPhoto'
+        contenedorFotos.style.display = 'none'
+        contenedorFotos.innerHTML = `
+            <div class="container mt-4">
+                <h1 class="card-header">Seleccionar imagen</h1>
+                <div id="fotosContenedor" class="d-flex flex-wrap text-center">
+                </div>
+            </div>`;
+        $('.nav').after(contenedorFotos);
+        $(contenedorFotos).slideDown("slow");
+        this.fotos.map((foto) => {
+            $('#fotosContenedor').append(`<img name="picture" src="${foto}" class="img-fluid img-thumbnail d-block">
+            `);
+        });
 
-            fotos.map((foto) => {
-
-                $('#fotosContenedor').append(`
-                    <img src="${foto}"></img>
-                `);
-
-            });
-                
-            
-            $('.nav').after(contenedorFotos);
-            $(contenedorFotos).slideDown("slow");
-        }, 2000)
 
     }
+
 }
 
