@@ -1,35 +1,21 @@
-Agenda con Integración de API de Pexels 📅
-Una aplicación de agenda elegante construida con HTML, CSS, Bootstrap, JavaScript, jQuery y AJAX. Esta aplicación integra la API de Pexels para enriquecer la experiencia del usuario con imágenes de alta calidad.
+# 📅 Agenda con Integración de API de Pexels
+[Aplicación](https://montiam.github.io/AgendaCoderHouse/)
+Una aplicación de agenda construida con **HTML**, **CSS**, **Bootstrap**, **JavaScript**, **jQuery** y **AJAX**. Esta aplicación utiliza la API de [Pexels](https://www.pexels.com/api/) para mostrar imágenes de alta calidad.
 
-Screenshot de la aplicación
+## 🚀 Empezando
 
-Características 🌟
-Interfaz Responsiva: Construida con Bootstrap para adaptarse a dispositivos de todos los tamaños.
-Gestión de Eventos: Añade, edita y borra eventos con facilidad.
-Integración con Pexels: Obtiene imágenes impresionantes relacionadas con tus eventos directamente de Pexels.
-Interacción Dinámica: Gracias a AJAX, la aplicación proporciona una experiencia de usuario fluida.
-Cómo Empezar 🚀
-Prerequisitos
-Un navegador web moderno (como Chrome, Firefox, Safari, Edge).
-Acceso a internet para conectar con la API de Pexels.
-Instalación y Uso
-Clonar el Repositorio:
+Estas instrucciones te proporcionarán una copia del proyecto en funcionamiento en tu máquina local para propósitos de desarrollo y pruebas.
 
-bash
-Copy code
-git clone [URL del repositorio]
-Navegar a la Aplicación:
-Abre index.html en tu navegador de elección.
+### 📋 Pre-requisitos
 
-Usar la Agenda:
-Comienza a añadir eventos y disfruta de las imágenes proporcionadas por Pexels.
+- Un navegador web moderno (Chrome, Firefox, Safari, Edge).
+- Acceso a internet para conectarse con la API de Pexels.
 
-Contribuciones 🤝
-¿Interesado en contribuir? ¡Genial! Las contribuciones son siempre bienvenidas. Consulta las CONTRIBUCIONES para saber más sobre cómo enviar pull requests.
+### 🔧 Instalación
 
-Créditos 📜
-Imágenes proporcionadas por Pexels API.
-Iconos por [Nombre del proveedor de iconos, si aplicable].
-Diseño y desarrollo inicial por [Tu nombre o el de tu equipo].
-Licencia 📄
-Este proyecto está bajo la Licencia MIT. Ve el archivo LICENSE para más detalles.
+1. Clona el repositorio:
+   ```bash
+   git clone [https://github.com/MontiAM/AgendaCoderHouse.git]
+
+
+
